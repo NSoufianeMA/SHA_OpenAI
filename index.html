@@ -70,10 +70,10 @@ body * {
   <script type="text/javascript" gwd-events="handlers">
     window.gwd = window.gwd || {};
     gwd.auto_Button_1Click = function(event) {
-      document.getElementById('button_1').addEventListener('click', function() {
+     // document.getElementById('button_1').addEventListener('click', function() {
         // Get the text value you want to send
         var inputValue = document.getElementById('textInput').value;
-     //   alert('textInput: ' + inputValue);
+      //  alert('textInput: ' + inputValue);
         // Create an object to hold the data
         var requestData = {
           "prompt": inputValue,
@@ -109,7 +109,7 @@ body * {
         };
         // Send the POST request with the JSON data
         xhr.send(jsonData);
-      });
+      //});
     };
   </script>
   <script type="text/javascript" gwd-events="registration">
