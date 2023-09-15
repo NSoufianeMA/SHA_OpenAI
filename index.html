@@ -42,73 +42,127 @@ body * {
     position: absolute;
     width: 100px;
     height: 20px;
-    top: 86px;
     left: 221px;
+    top: 89px;
 }
 .gwd-label-hcw2 {
     position: absolute;
     width: 100px;
     height: 20px;
-    left: 79px;
     top: 89px;
+    left: 79px;
 }
 .gwd-button-m2uk {
     position: absolute;
     height: 24px;
-    left: 221px;
-    top: 170px;
     width: 200px;
+    top: 250px;
+    left: 221px;
 }
 .gwd-input-fs05 {
     position: absolute;
-    top: 252px;
-    left: 221px;
     width: 400px;
     height: 100px;
+    max-height: 80px;
+    max-width: 400px;
+    left: 221px;
+    top: 303px;
+    opacity: 1;
+    overflow: scroll;
+}
+.gwd-label-1n75 {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    left: 79px;
+    top: 303px;
+}
+.gwd-input-14yy {
+    position: absolute;
+    width: 100px;
+    height: 24px;
+    left: 219px;
+    top: 142px;
+}
+.gwd-label-1fj7 {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    left: 79px;
+    top: 143px;
+}
+.gwd-select-1663 {
+    position: absolute;
+    top: 194.02px;
+    left: 220.97px;
+    height: 23.99px;
+    width: 100.03px;
+}
+.gwd-label-3e30 {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    left: 79px;
+    top: 198px;
+}
+.gwd-textarea-1wf6 {
+    width: 400px;
+    height: 80px;
+    left: 0px;
+    top: 0px;
+}
+.gwd-div-1bmo {
+    position: absolute;
+    left: 221px;
+    top: 306px;
+    width: 406px;
+    height: 86px;
 }</style>
   <script type="text/javascript" gwd-events="support" src="gwd-events-support.1.0.js"></script>
   <script type="text/javascript" gwd-events="handlers">
     window.gwd = window.gwd || {};
     gwd.auto_Button_1Click = function(event) {
-     // document.getElementById('button_1').addEventListener('click', function() {
-        // Get the text value you want to send
-        var inputValue = document.getElementById('textInput').value;
+      // document.getElementById('button_1').addEventListener('click', function() {
+      // Get the text value you want to send
+      var inputValue = document.getElementById('textInput').value;
+      let temperature_range = document.getElementById('temperature_range').value;
+      let max_tokens = document.getElementById('max_tokens').value;
       //  alert('textInput: ' + inputValue);
-        // Create an object to hold the data
-        var requestData = {
-          "prompt": inputValue,
-          "model": "gpt-3.5-turbo",
-          "max_tokens": 100,
-          "temperature": 0
-        };
-        // Convert the data object to a JSON string
-        var jsonData = JSON.stringify(requestData);
-        // Create a new XMLHttpRequest object
-        var xhr = new XMLHttpRequest();
-        // Define the URL you want to make the POST request to
-        var url = 'https://openaisha392.azurewebsites.net/api/sha_openai4';
-        // Set up the request
-        xhr.open('POST', url, true);
-        // Set the Content-Type header for JSON data
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        // Set up the event handler for when the request is completed
-        xhr.onload = function() {
-          if (xhr.status === 200) {
-            // Request was successful, get the response text
-            var responseText = xhr.responseText;
-            document.getElementById('responseText').value = responseText;
-            //   alert('Response from server: ' + responseText);
-          } else {
-            // Request failed
-            alert('HTTP request failed with status ' + xhr.status);
-          }
-        };
-        // Handle network errors
-        xhr.onerror = function() {
-          alert('Network error occurred');
-        };
-        // Send the POST request with the JSON data
-        xhr.send(jsonData);
+      // Create an object to hold the data
+      var requestData = {
+        "prompt": inputValue,
+        "model": "gpt-3.5-turbo",
+        "max_tokens": parseFloat(max_tokens),
+        "temperature": parseFloat(temperature_range)
+      };
+      // Convert the data object to a JSON string
+      var jsonData = JSON.stringify(requestData);
+      // Create a new XMLHttpRequest object
+      var xhr = new XMLHttpRequest();
+      // Define the URL you want to make the POST request to
+      var url = 'https://openaisha392.azurewebsites.net/api/sha_openai4';
+      // Set up the request
+      xhr.open('POST', url, true);
+      // Set the Content-Type header for JSON data
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      // Set up the event handler for when the request is completed
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          // Request was successful, get the response text
+          var responseText = xhr.responseText;
+          document.getElementById('responsearea').value = responseText;
+          //   alert('Response from server: ' + responseText);
+        } else {
+          // Request failed
+          alert('HTTP request failed with status ' + xhr.status);
+        }
+      };
+      // Handle network errors
+      xhr.onerror = function() {
+        alert('Network error occurred');
+      };
+      // Send the POST request with the JSON data
+      xhr.send(jsonData);
       //});
     };
   </script>
@@ -129,8 +183,21 @@ body * {
 <body class="htmlNoPages">
   <input type="text" id="textInput" class="gwd-input-19aa">
   <label id="label_1" class="gwd-label-hcw2">Prompt</label>
+  <label id="label_2" class="gwd-label-1n75">Response</label>
+  <label id="label_3" class="gwd-label-1fj7">temperature</label>
+  <label id="label_4" class="gwd-label-3e30">Length</label>
   <button id="button_1" class="gwd-button-m2uk">Generate response</button>
-  <input type="text" id="responseText" class="gwd-input-fs05">
+  <input type="range" id="temperature_range" value="1" min="0" max="1" step="0.1" class="gwd-input-14yy">
+  <select id="max_tokens" class="gwd-select-1663">
+    <option value="50" selected="">Very small</option>
+    <option value="100">Small</option>
+    <option value="200">Medium</option>
+    <option value="300">High</option>
+    <option value="400">Very high</option>
+  </select>
+  <div class="gwd-div-1bmo">
+    <textarea id="responsearea" name="responsearea" rows="4" cols="50" class="gwd-textarea-1wf6"> </textarea>
+  </div>
 
 
 </body></html>
